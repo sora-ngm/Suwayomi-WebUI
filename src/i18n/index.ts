@@ -42,6 +42,7 @@ export const i18n = use(initReactI18next)
     .use(LanguageDetector)
     .init({
         supportedLngs: i18nResources,
+        lng: 'zh_Hans',
         fallbackLng: 'en',
 
         backend: {
