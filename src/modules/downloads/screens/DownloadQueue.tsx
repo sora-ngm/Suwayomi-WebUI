@@ -13,6 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { closestCenter, DndContext, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useWindowEvent } from '@mantine/hooks';
@@ -64,6 +65,27 @@ export const DownloadQueue: React.FC = () => {
         }
     };
 
+    const handleRetry = async (chapterId: number) => {
+        try {
+            await requestManager.addChapterToDownloadQueue(chapterId).response;
+        } catch (e) {
+            makeToast(t('download.queue.error.label.failed_to_retry'), 'error', getErrorMessage(e));
+        }
+    };
+
+    const reDownQueue = async () => {
+        try {
+            console.log(queue);
+            queue.forEach((item) => {
+                if (item.state === 'ERROR') {
+                    handleRetry(item.chapter.id);
+                }
+            });
+        } catch (e) {
+            makeToast('全部重新下载失败', 'error', getErrorMessage(e));
+        }
+    };
+
     const toggleQueueStatus = () => {
         if (status === DownloaderState.Stopped) {
             requestManager.startDownloads();
@@ -102,6 +124,11 @@ export const DownloadQueue: React.FC = () => {
             <CustomTooltip title={t('download.queue.label.delete_all')}>
                 <IconButton onClick={clearQueue} color="inherit">
                     <DeleteSweepIcon />
+                </IconButton>
+            </CustomTooltip>
+            <CustomTooltip title="全部重新下载">
+                <IconButton onClick={reDownQueue} color="inherit">
+                    <AutorenewIcon />
                 </IconButton>
             </CustomTooltip>
 
