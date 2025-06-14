@@ -100,6 +100,7 @@
     "@typescript-eslint/parser": "7.16.1",
     "@vitejs/plugin-legacy": "6.1.1",
     "@vitejs/plugin-react-swc": "3.9.0",
+    "code-inspector-plugin": "^0.20.12",
     "eslint": "8.57.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "18.0.0",
@@ -122,5 +123,6 @@
     "vite": "6.3.4",
     "vite-tsconfig-paths": "5.1.4",
     "yargs": "17.7.2"
-  }
+  },
+  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
 }
